@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Eman ❤</title>
+    <!-- Google Font (Poppins & Great Vibes / Pacifico for romantic aesthetic text) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body {
+            /* Background pic clear aur face/eyes mid position adjusted */
+            background: url('bg.jpg') no-repeat center 25% fixed;
+            background-size: cover;
+            color: #222;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        .navbar {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #444;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: #ff416c;
+            color: #fff;
+        }
+        .container {
+            width: 90%;
+            max-width: 680px;
+            margin: 30px auto 50px auto;
+            /* Fully Transparent glass effect so cake.jpg is completely visible */
+            background: linear-gradient(rgba(255, 255, 255, 0.40), rgba(255, 255, 255, 0.40)), url('cake.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            display: none;
+        }
+        .container.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Aesthetic Glowing Headings */
+        h1 { 
+            font-size: 2.2rem; 
+            font-weight: 700; 
+            margin-bottom: 15px; 
+            color: #c71585; 
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 105, 180, 0.6);
+            letter-spacing: 0.5px;
+        }
+        h2 { 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            margin-bottom: 15px; 
+            color: #c71585; 
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.95);
+        }
+
+        /* Aesthetic Paragraph Styling */
+        p { 
+            font-size: 1rem; 
+            line-height: 1.9; 
+            margin-bottom: 15px; 
+            font-weight: 400; 
+            color: #1a1a1a; 
+            text-align: left; 
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.55);
+            padding: 22px;
+            border-radius: 18px;
+            margin-top: 15px;
+            border-left: 5px solid #ff416c;
+            max-height: 420px;
+            overflow-y: auto;
+            text-align: left;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.04), 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Scrollbar Styling */
+        .message-box::-webkit-scrollbar, .gallery-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .message-box::-webkit-scrollbar-thumb, .gallery-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 65, 108, 0.5);
+            border-radius: 10px;
+        }
+
+        /* Stylish Gallery Grid Design */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+            max-height: 450px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .gallery-item {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 4px solid #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(255, 65, 108, 0.3);
+        }
+        .gallery-item:hover { 
+            transform: scale(1.05); 
+            border-color: #ff416c;
+            box-shadow: 0 8px 20px rgba(255, 65, 108, 0.5);
+        }
+
+        /* Quiz Styling */
+        .quiz-step { display: none; text-align: left; }
+        .quiz-step.active-step { display: block; animation: fadeIn 0.4s ease-in-out; }
+        .question-box { 
+            margin-bottom: 20px; 
+            background: rgba(255, 255, 255, 0.65); 
+            padding: 20px; 
+            border-radius: 18px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06); 
+            backdrop-filter: blur(4px);
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .quiz-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #c71585;
+            border: 2px solid #ff416c;
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: left;
+            transition: 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        .quiz-btn:hover { 
+            background: #ff416c; 
+            color: #fff; 
+            transform: translateX(5px);
+        }
+
+        .main-btn {
+            background-color: #ff416c;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+            margin-top: 10px;
+        }
+        .main-btn:hover { background-color: #e02450; transform: scale(1.05); }
+
+        /* Animated Cake Celebration Styling */
+        #celebration {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        .romantic-announcement {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: #ff1493;
+            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.9), 0 0 15px rgba(255, 105, 180, 0.5);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .cake-container {
+            position: relative;
+            width: 180px;
+            height: 160px;
+            margin: 20px auto;
+        }
+        .cake-base {
+            position: absolute;
+            bottom: 0;
+            width: 180px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff758c, #ff416c);
+            border-radius: 15px 15px 10px 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 3px solid #fff;
+        }
+        .cake-layer {
+            position: absolute;
+            bottom: 60px;
+            left: 20px;
+            width: 140px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffa69e, #ff686b);
+            border-radius: 12px 12px 5px 5px;
+            border: 2px solid #fff;
+        }
+        .candle {
+            position: absolute;
+            bottom: 120px;
+            left: 85px;
+            width: 10px;
+            height: 35px;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #ff416c;
+        }
+        .flame {
+            position: absolute;
+            bottom: 155px;
+            left: 81px;
+            width: 18px;
+            height: 25px;
+            background: #ffd700;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px #ff4500, 0 0 25px #ff8c00;
+            animation: flicker 0.6s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.15) rotate(3deg); opacity: 0.85; }
+        }
+        .cake-cut-msg {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #d63384;
+            margin-top: 15px;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.9);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <button class="tab-btn active" onclick="switchTab(event, 'home')">Home ❤️</button>
+        <button class="tab-btn" onclick="switchTab(event, 'gallery')">Best Moments 📸</button>
+        <button class="tab-btn" onclick="switchTab(event, 'surprise')">Surprise 💍</button>
+    </div>
+
+    <!-- Home Tab -->
+    <div id="home" class="container active">
+        <img src="gf.jpg" alt="Her Photo" class="profile-img">
+        <h1>Happy Birthday Eman! 🎉👑</h1>
+        
+        <div class="message-box">
+            <p>Happy Birthday to the queen of my heart, my whole world, and the absolute best part of my life! 💖✨ Aj ka din duniya ka sab se khoobsurat din hai kyun ke is din wo haseen hasti is dunya mein aayi thi jo meri zindagi ko khushiyon aur roshni se bhar deti hai 🌟. May this special day bring as much joy, love, and magic into your life as you bring into mine 🥰. Tum meri zindagi ka sab se haseen tohfa ho 🎁, aur main hamesha tumhein khush dekhna chahta hoon 🌹. Have the happiest and most magical birthday, my Queen! 👑🎂🥂</p>
+            
+            <p><b>Mari piyari si Shahzadi 🥺💖</b> You are my kuchu puchu🤌🏻🥰 you are my whole life jis k sath sare bandhan bandh liye hain 💍🥺 jis k sath zindagi itni haseen ho gi k abhi se soch lia k jis ka sath ho ga zindagi main wo sath duniya ka best sath ho gaa 🌍🤌🏻🥺🥺</p>
+            
+            <p>You are my Golu moluuu 🥺🧸 mara moota baby 🥺🤗 mari jaan ka toota 💖 mari jind mari jaaan 😘 khne ko to bhut kuch hai but ilfaz nhi hoteee 🥺💫🥺🥺</p>
+            
+            <p>Tum samne ho to tumhein bataon k kitni khubsorat chese ho tum jise Allah ne apne hussan k qalm se banaya 🤲✨ ase lgta jase jannat ki horon ki jaga tumhein zameen pr utar dia hoo 👼🥺🥺</p>
+            
+            <p>Main bss yhi kahon ga mari jaaaan eman 🥺❤️<br>
+            <b>I love you sooo much 🥺😭💕</b></p>
+            
+            <p>Tum khubsorat jase chand lgti hoo 🌙🤌🏻🥺<br>
+            ho nadan pr be misal lgti hoo 💫🤌🏻🥺<br>
+            🤌🏻ye kanch ka tukra kia batai ga tumko khubsorati tumhari 💎🤌🏻<br>
+            Mari ankhon se pocho tum kitni ljawab lgti hooo 👀🤌🏻😩😩</p>
+            
+            <p>Main apni life main jitna b busy kun na ho jao but hamesha ap se piyar krta rahon gaa ⏰🥺 mare zehan main mare dil main hamesha tum raho gii 🧠💓🤌🏻🥺🥺🥺 tumhari khushi k liye kuch b krne k liye hamesha tiyar rahon gaa 💪🥺 tumhare chahre pr khushi ki muskurahat hi mari therapy hai 😊🤌🏻🥺🥺🥺 tum ho too ye jahan hai wrna kuch b nhiii 🌌🥺</p>
+            
+            <p><b>Bss hamesha mare sath rahooo 🤝🥺</b><br>
+            ak dost ban kr 🫂🤌🏻<br>
+            ak hamsafar ban kr 👩‍❤️‍👨🥺<br>
+            ak biwi ban kr 👰‍♀️🤌🏻🥺🥺🥺</p>
+            
+            <p>My kuchu puchuu 🥺🥰<br>
+            My mootta bhaluuu 🥺🐻<br>
+            My bubu 🤌🏻🥺🥺🥺</p>
+            
+            <p>Tumhari ankhein uljhan main dalti hain mujhe 🥺🤌🏻👀<br>
+            Hum inhein dekhein ya inka dekhna dekhein? 🙈💖🥺🥺</p>
+        </div>
+    </div>
+
+    <!-- Best Moments Tab (Clickable & Styled Photos Grid) -->
+    <div id="gallery" class="container">
+        <h2>Best Moments 📸✨</h2>
+        <p>Hamaari kuch sab se pyari aur yaadgaar yaadein...</p>
+        <div class="gallery-grid">
+            <a href="pic1.jpg" target="_blank"><img src="pic1.jpg" alt="Memory 1" class="gallery-item"></a>
+            <a href="pic2.jpg" target="_blank"><img src="pic2.jpg" alt="Memory 2" class="gallery-item"></a>
+            <a href="pic3.jpg" target="_blank"><img src="pic3.jpg" alt="Memory 3" class="gallery-item"></a>
+            <a href="pic4.jpg" target="_blank"><img src="pic4.jpg" alt="Memory 4" class="gallery-item"></a>
+            <a href="pic5.jpg" target="_blank"><img src="pic5.jpg" alt="Memory 5" class="gallery-item"></a>
+            <a href="pic6.jpg" target="_blank"><img src="pic6.jpg" alt="Memory 6" class="gallery-item"></a>
+            <a href="pic7.jpg" target="_blank"><img src="pic7.jpg" alt="Memory 7" class="gallery-item"></a>
+            <a href="pic8.jpg" target="_blank"><img src="pic8.jpg" alt="Memory 8" class="gallery-item"></a>
+            <a href="pic9.jpg" target="_blank"><img src="pic9.jpg" alt="Memory 9" class="gallery-item"></a>
+            <a href="pic10.jpg" target="_blank"><img src="pic10.jpg" alt="Memory 10" class="gallery-item"></a>
+            <a href="pic12.jpg" target="_blank"><img src="pic12.jpg" alt="Memory 12" class="gallery-item"></a>
+            <a href="pic13.jpg" target="_blank"><img src="pic13.jpg" alt="Memory 13" class="gallery-item"></a>
+            <a href="pic14.jpg" target="_blank"><img src="pic14.jpg" alt="Memory 14" class="gallery-item"></a>
+            <a href="pic15.jpg" target="_blank"><img src="pic15.jpg" alt="Memory 15" class="gallery-item"></a>
+            <a href="pic16.jpg" target="_blank"><img src="pic16.jpg" alt="Memory 16" class="gallery-item"></a>
+            <a href="pic17.jpg" target="_blank"><img src="pic17.jpg" alt="Memory 17" class="gallery-item"></a>
+            <a href="pic18.jpg" target="_blank"><img src="pic18.jpg" alt="Memory 18" class="gallery-item"></a>
+            <a href="pic19.jpg" target="_blank"><img src="pic19.jpg" alt="Memory 19" class="gallery-item"></a>
+            <a href="pic20.jpg" target="_blank"><img src="pic20.jpg" alt="Memory 20" class="gallery-item"></a>
+            <a href="pic21.jpg" target="_blank"><img src="pic21.jpg" alt="Memory 21" class="gallery-item"></a>
+            <a href="pic22.jpg" target="_blank"><img src="pic22.jpg" alt="Memory 22" class="gallery-item"></a>
+            <a href="pic23.jpg" target="_blank"><img src="pic23.jpg" alt="Memory 23" class="gallery-item"></a>
+            <a href="pic24.jpg" target="_blank"><img src="pic24.jpg" alt="Memory 24" class="gallery-item"></a>
+            <a href="pic25.jpg" target="_blank"><img src="pic25.jpg" alt="Memory 25" class="gallery-item"></a>
+            <a href="pic26.jpg" target="_blank"><img src="pic26.jpg" alt="Memory 26" class="gallery-item"></a>
+            <a href="pic27.jpg" target="_blank"><img src="pic27.jpg" alt="Memory 27" class="gallery-item"></a>
+            <a href="pic28.jpg" target="_blank"><img src="pic28.jpg" alt="Memory 28" class="gallery-item"></a>
+            <a href="pic29.jpg" target="_blank"><img src="pic29.jpg" alt="Memory 29" class="gallery-item"></a>
+        </div>
+    </div>
+
+    <!-- Surprise / Quiz Tab -->
+    <div id="surprise" class="container active">
+        <h2>A Little Fun Quiz! ✨</h2>
+        
+        <!-- Question 1 -->
+        <div id="q1" class="quiz-step active-step">
+            <div class="question-box">
+                <p><b>Q1: Tum mujh se kitna piyar krti ho?</b></p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="nextQuestion(2)">a) Bhut ziada</button>
+                    <button class="quiz-btn" onclick="nextQuestion(2)">b) sab se ziada</button>
+                    <button class="quiz-btn" onclick="nextQuestion(2)">c) bilkul b nhi</button>
+                    <button class="quiz-btn" onclick="nextQuestion(2)">d) khud se b ziada</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div id="q2" class="quiz-step">
+            <div class="question-box">
+                <p><b>Q2: Life main kasa laga mujh se mil kr real main?</b></p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="nextQuestion(3)">a) whatsapp pr bataon gi</button>
+                    <button class="quiz-btn" onclick="nextQuestion(3)">b) voice note main</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div id="q3" class="quiz-step">
+            <div class="question-box">
+                <p><b>Q3: Kia tum mare bchon ki maa bano gi?</b></p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="nextQuestion(4)">a) han na</button>
+                    <button class="quiz-btn" onclick="nextQuestion(4)">b) kun nhi</button>
+                    <button class="quiz-btn" onclick="nextQuestion(4)">c) hyee allah g</button>
+                    <button class="quiz-btn" onclick="nextQuestion(4)">d) both a and b</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div id="q4" class="quiz-step">
+            <div class="question-box">
+                <p><b>Q4: Kasa laga mera wish krna?</b></p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="showResultPrompt()">a) acha tha</button>
+                    <button class="quiz-btn" onclick="showResultPrompt()">b) sab se alag</button>
+                    <button class="quiz-btn" onclick="showResultPrompt()">c) whatsapp pr bataon gi</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Check Prompt -->
+        <div id="result-prompt" class="quiz-step">
+            <div class="question-box" style="text-align: center;">
+                <p style="text-align: center; font-size: 1.1rem; color: #c71585; font-weight: 600;">✨ All questions answered successfully! ✨</p>
+                <p style="text-align: center; margin-bottom: 20px;">Ready for your ultimate result & final surprise?</p>
+                <button class="main-btn" onclick="triggerProposal()">Check Result & Cake Cutting 💍🎂</button>
+            </div>
+        </div>
+        
+        <!-- Animated Cake Cutting & Romantic Message Section -->
+        <div id="celebration">
+            <div class="romantic-announcement">
+                "Ap ko Hassan ne apni biwi bana lia hai!" 💍👰‍♀️❤️
+            </div>
+            <div class="cake-container">
+                <div class="flame"></div>
+                <div class="candle"></div>
+                <div class="cake-layer"></div>
+                <div class="cake-base"></div>
+            </div>
+            <div class="cake-cut-msg">
+                🎂✨ Yayy! Virtual Cake Cutting & Forever Together! 🥂🎉
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(evt, tabName) {
+            let containers = document.getElementsByClassName("container");
+            for (let i = 0; i < containers.length; i++) {
+                containers[i].classList.remove("active");
+            }
+            let tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function nextQuestion(qNumber) {
+            let steps = document.getElementsByClassName("quiz-step");
+            for (let i = 0; i < steps.length; i++) {
+                steps[i].classList.remove("active-step");
+            }
+            document.getElementById("q" + qNumber).classList.add("active-step");
+        }
+
+        function showResultPrompt() {
+            let steps = document.getElementsByClassName("quiz-step");
+            for (let i = 0; i < steps.length; i++) {
+                steps[i].classList.remove("active-step");
+            }
+            document.getElementById("result-prompt").classList.add("active-step");
+        }
+
+        function triggerProposal() {
+            // Hide result prompt
+            document.getElementById("result-prompt").style.display = "none";
+            var celeb = document.getElementById("celebration");
+            celeb.style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
